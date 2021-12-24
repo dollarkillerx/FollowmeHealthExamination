@@ -1,71 +1,3 @@
-package test
-
-import (
-	"crypto/tls"
-	"github.com/dollarkillerx/FollowmeHealthExamination/pkg/models"
-	"github.com/dollarkillerx/FollowmeHealthExamination/utils"
-	"gopkg.in/gomail.v2"
-	"log"
-	"testing"
-
-	"github.com/dollarkillerx/urllib"
-)
-
-func TestFollowTest1(t *testing.T) {
-	urli := "https://www.followme.hk/api/v3/followtrade/agent/positions?uid=188678&index=13"
-
-	var mo models.CurrentPosition
-	err := urllib.Post(urli).RandUserAgent().
-		SetJson([]byte(`{"OrderBy":0,"OrderField":4,"PageIndex":1,"PageSize":1000,"uid":188678,"index":13,"Type":0,"Page":1}`)).
-		SetHeader("expect-ct", `max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"`).
-		SetHeader("server", "cloudflare").
-		SetHeader("serverinfo", "www.followme.hk").
-		SetHeader("cookie", "lang=zh-CN; theme=light; cookiesession1=678A3E0EABCDEFGHIJKLMNOPQRSV3329; HMF_CI=6209f3acb4e3557ed90250cc3b469235c015ca2f66085c75dc45601283bcc12594; HMY_JC=e5e8ca28520d67abf7f53f3c16a78832b300170ca208b1f8f9a60238a6d32563cc,; USER_TOKEN=7nUVbpLyYi4xqxPkSZu7VGeV50d2usBSjrcbs4FC9alReUw8oGKzMgkmgy83L58N9ut86cnIeWfKVLC7mGEbsA; AWSALBTG=gGuzJzkcCMVEya0mUUJpdrRPrDOUsgYVQRdj8LoMzLkHL/XnBPzwsx951VjKg3lWDz6xY2Tc4Hzo0Gsx8I27SM1gwVDaRfzLtvOdRuaEbJgQ+S07KBYavsMYxzYGdhLTgRUDNjmZwFmuEJ88AASevifUXZihPeEzN+FYMNIFncPeBSBLbB4=; AWSALBTGCORS=gGuzJzkcCMVEya0mUUJpdrRPrDOUsgYVQRdj8LoMzLkHL/XnBPzwsx951VjKg3lWDz6xY2Tc4Hzo0Gsx8I27SM1gwVDaRfzLtvOdRuaEbJgQ+S07KBYavsMYxzYGdhLTgRUDNjmZwFmuEJ88AASevifUXZihPeEzN+FYMNIFncPeBSBLbB4=").
-		FromJson(&mo)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	utils.Print(mo)
-}
-
-func TestFollowTest2(t *testing.T) {
-	urli := "https://www.followme.hk/api/v3/followtrade/agent/positions?uid=784177&index=3"
-
-	var mo models.CurrentPosition
-	err := urllib.Post(urli).RandUserAgent().
-		SetJson([]byte(`{"OrderBy":0,"OrderField":4,"PageIndex":1,"PageSize":1000,"uid":188678,"index":13,"Type":0,"Page":1}`)).
-		SetHeader("expect-ct", `max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"`).
-		SetHeader("server", "cloudflare").
-		SetHeader("serverinfo", "www.followme.hk").
-		SetHeader("cookie", "lang=zh-CN; theme=light; cookiesession1=678A3E0EABCDEFGHIJKLMNOPQRSV3329; HMF_CI=6209f3acb4e3557ed90250cc3b469235c015ca2f66085c75dc45601283bcc12594; HMY_JC=e5e8ca28520d67abf7f53f3c16a78832b300170ca208b1f8f9a60238a6d32563cc,; USER_TOKEN=7nUVbpLyYi4xqxPkSZu7VGeV50d2usBSjrcbs4FC9alReUw8oGKzMgkmgy83L58N9ut86cnIeWfKVLC7mGEbsA; AWSALBTG=gGuzJzkcCMVEya0mUUJpdrRPrDOUsgYVQRdj8LoMzLkHL/XnBPzwsx951VjKg3lWDz6xY2Tc4Hzo0Gsx8I27SM1gwVDaRfzLtvOdRuaEbJgQ+S07KBYavsMYxzYGdhLTgRUDNjmZwFmuEJ88AASevifUXZihPeEzN+FYMNIFncPeBSBLbB4=; AWSALBTGCORS=gGuzJzkcCMVEya0mUUJpdrRPrDOUsgYVQRdj8LoMzLkHL/XnBPzwsx951VjKg3lWDz6xY2Tc4Hzo0Gsx8I27SM1gwVDaRfzLtvOdRuaEbJgQ+S07KBYavsMYxzYGdhLTgRUDNjmZwFmuEJ88AASevifUXZihPeEzN+FYMNIFncPeBSBLbB4=").
-		FromJson(&mo)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	utils.Print(mo)
-}
-
-func TestEmail(t *testing.T) {
-	d := gomail.NewDialer("smtp.mxhichina.com", 465, "postman@postman.cn", "postman")
-	d.TLSConfig = &tls.Config{InsecureSkipVerify: true}
-
-	m := gomail.NewMessage()
-	m.SetHeader("From", "Postman"+"<postman@postman.cn>") //这种方式可以添加别名，即“XD Game”， 也可以直接用<code>m.SetHeader("From",mailConn["user"])</code> 读者可以自行实验下效果
-	m.SetHeader("To", "postman@postman.com")              //发送给多个用户
-	m.SetHeader("Subject", "Postman测试邮件")                 //设置邮件主题
-	//m.SetBody("text/html", `hello world`)                      //设置邮件正文
-	m.SetBody("text/html", p) //设置邮件正文
-	//m.SetBody("text/html", body)                      //设置邮件正文
-
-	err := d.DialAndSend(m)
-	if err != nil {
-		log.Fatalln(err)
-	}
-}
-
-var p = `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -760,7 +692,7 @@ var p = `
 
                     -->
 
-                    <h3 class="mui--text-center">Brand.io</h3>
+                    <h3 class="mui--text-center">Postman Followme Health Examination</h3>
                     <table cellpadding="0" cellspacing="0" border="0" width="100%">
                         <tr>
                             <td class="mui-panel">
@@ -774,48 +706,26 @@ var p = `
                                     <tbody>
                                     <tr>
                                         <td>
-                                            <h2>Welcome to Brand.io!</h2>
+                                            <h2>Postman Followme Health Examination  错误丢失!</h2>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td class="mui--divider-top">
-                                            Hello Friend,
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            Thanks for signing up for our service! Brand.io is the fun new
-                                            way to brand your I/O. Please verify your email by clicking
-                                            this button:
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <table
-                                                    class="mui-btn mui-btn--primary"
-                                                    border="0"
-                                                    cellspacing="0"
-                                                    cellpadding="0"
-                                            >
-                                                <tr>
-                                                    <td>
-                                                        <a href="#">Verify email address</a>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            Thanks,
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td id="last-cell">
-                                            The Brand.io Team
-                                        </td>
-                                    </tr>
-                                    </tbody>
+
+                                    <table class="mui-table">
+                                        <thead>
+                                        <tr>
+                                            <th>Column 1</th>
+                                            <th>Column 2</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>Cell 1-1</td>
+                                            <td>Cell 1-2</td>
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+
                                 </table>
                             </td>
                         </tr>
@@ -828,4 +738,3 @@ var p = `
 </table>
 </body>
 </html>
-`
