@@ -905,7 +905,7 @@ var emailTemplate = `
                                     <tbody>
                                     <tr>
                                         <td>
-                                            <h2>Postman Followme Health Examination 订单预计!</h2>
+                                            <h2>Postman Followme Health Examination 订单状态预警!</h2>
                                         </td>
                                     </tr>
 
