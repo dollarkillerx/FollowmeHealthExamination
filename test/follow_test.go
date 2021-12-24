@@ -20,7 +20,7 @@ func TestFollowTest1(t *testing.T) {
 		SetHeader("expect-ct", `max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"`).
 		SetHeader("server", "cloudflare").
 		SetHeader("serverinfo", "www.followme.hk").
-		SetHeader("cookie", "lang=zh-CN; theme=light; cookiesession1=678A3E0EABCDEFGHIJKLMNOPQRSV3329; HMF_CI=6209f3acb4e3557ed90250cc3b469235c015ca2f66085c75dc45601283bcc12594; HMY_JC=e5e8ca28520d67abf7f53f3c16a78832b300170ca208b1f8f9a60238a6d32563cc,; USER_TOKEN=7nUVbpLyYi4xqxPkSZu7VGeV50d2usBSjrcbs4FC9alReUw8oGKzMgkmgy83L58N9ut86cnIeWfKVLC7mGEbsA; AWSALBTG=gGuzJzkcCMVEya0mUUJpdrRPrDOUsgYVQRdj8LoMzLkHL/XnBPzwsx951VjKg3lWDz6xY2Tc4Hzo0Gsx8I27SM1gwVDaRfzLtvOdRuaEbJgQ+S07KBYavsMYxzYGdhLTgRUDNjmZwFmuEJ88AASevifUXZihPeEzN+FYMNIFncPeBSBLbB4=; AWSALBTGCORS=gGuzJzkcCMVEya0mUUJpdrRPrDOUsgYVQRdj8LoMzLkHL/XnBPzwsx951VjKg3lWDz6xY2Tc4Hzo0Gsx8I27SM1gwVDaRfzLtvOdRuaEbJgQ+S07KBYavsMYxzYGdhLTgRUDNjmZwFmuEJ88AASevifUXZihPeEzN+FYMNIFncPeBSBLbB4=").
+		SetHeader("cookie", "lang=zh-CN; theme=light; cookiesession1=678A3E0EABCDEFGHIJKLMNOPQRSV3329; HMF_CI=6209f3acb4e3557ed90250cc3b469235c015ca2f66085c75dc45601283bcc12594; USER_TOKEN=7nUVbpLyYi4xqxPkSZu7VGeV50d2usBSjrcbs4FC9alReUw8oGKzMgkmgy83L58N9ut86cnIeWfKVLC7mGEbsA;").
 		FromJson(&mo)
 	if err != nil {
 		log.Fatalln(err)
@@ -38,7 +38,7 @@ func TestFollowTest2(t *testing.T) {
 		SetHeader("expect-ct", `max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"`).
 		SetHeader("server", "cloudflare").
 		SetHeader("serverinfo", "www.followme.hk").
-		SetHeader("cookie", "lang=zh-CN; theme=light; cookiesession1=678A3E0EABCDEFGHIJKLMNOPQRSV3329; HMF_CI=6209f3acb4e3557ed90250cc3b469235c015ca2f66085c75dc45601283bcc12594; HMY_JC=e5e8ca28520d67abf7f53f3c16a78832b300170ca208b1f8f9a60238a6d32563cc,; USER_TOKEN=7nUVbpLyYi4xqxPkSZu7VGeV50d2usBSjrcbs4FC9alReUw8oGKzMgkmgy83L58N9ut86cnIeWfKVLC7mGEbsA; AWSALBTG=gGuzJzkcCMVEya0mUUJpdrRPrDOUsgYVQRdj8LoMzLkHL/XnBPzwsx951VjKg3lWDz6xY2Tc4Hzo0Gsx8I27SM1gwVDaRfzLtvOdRuaEbJgQ+S07KBYavsMYxzYGdhLTgRUDNjmZwFmuEJ88AASevifUXZihPeEzN+FYMNIFncPeBSBLbB4=; AWSALBTGCORS=gGuzJzkcCMVEya0mUUJpdrRPrDOUsgYVQRdj8LoMzLkHL/XnBPzwsx951VjKg3lWDz6xY2Tc4Hzo0Gsx8I27SM1gwVDaRfzLtvOdRuaEbJgQ+S07KBYavsMYxzYGdhLTgRUDNjmZwFmuEJ88AASevifUXZihPeEzN+FYMNIFncPeBSBLbB4=").
+		SetHeader("cookie", "lang=zh-CN; theme=light; cookiesession1=678A3E0EABCDEFGHIJKLMNOPQRSV3329; HMF_CI=6209f3acb4e3557ed90250cc3b469235c015ca2f66085c75dc45601283bcc12594; USER_TOKEN=7nUVbpLyYi4xqxPkSZu7VGeV50d2usBSjrcbs4FC9alReUw8oGKzMgkmgy83L58N9ut86cnIeWfKVLC7mGEbsA;").
 		FromJson(&mo)
 	if err != nil {
 		log.Fatalln(err)

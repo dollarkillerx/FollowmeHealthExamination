@@ -42,3 +42,17 @@ type OrderEx struct {
 	TraderAccountIndex int     `json:"TraderAccountIndex"`
 	TraderTradeID      int     `json:"TraderTradeID"` // 跟随订单号
 }
+
+type TwoWayOrder struct {
+	AccountUid  string `json:"account_uid"`
+	FollowmeUid string `json:"followme_uid"`
+
+	Volume float64 `json:"Volume"`
+
+	AccountOrderID  int `json:"account_order_id"`
+	FollowmeOrderID int `json:"followme_order_id"`
+
+	Status string `json:"status"`
+
+	CreateTime string `json:"create_time"`
+}
