@@ -27,6 +27,7 @@ type Config struct {
 	Accounts    []Account   `json:"accounts"`
 	Relation    []Relation  `json:"relation"`
 	EmailServer EmailServer `json:"email_server"`
+	ErrToEmail  string      `json:"err_to_email"`
 }
 
 type Account struct {

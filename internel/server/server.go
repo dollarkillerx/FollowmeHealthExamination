@@ -39,16 +39,20 @@ func (s *Server) monitorFollowme() {
 		select {
 		case <-ticker.C:
 			for _, v := range config.CONFIG.Accounts {
+				log.Println("Check: ", v.Uid, "  ", v.Index)
 				position, err := utils.CurrentPosition(v.Uid, v.Token, v.Index)
 				if err != nil {
-					time.Sleep(time.Second * 10)
 					log.Println(err, v.Uid, v.Token, v.Index)
+					if err := sendEmail(config.CONFIG.ErrToEmail, fmt.Sprintf("信号源信息获取失败: %s  Token: %s", v.Uid, v.Token)); err != nil {
+						log.Println(err)
+					}
+					time.Sleep(time.Second * 30)
 					continue
 				}
 
 				if position.Code != 0 {
-					time.Sleep(time.Second * 10)
-					utils.Print(position)
+					log.Println(position, v.Uid, v.Token, v.Index)
+					time.Sleep(time.Second * 30)
 					continue
 				}
 
@@ -66,7 +70,7 @@ func (s *Server) monitorFollowme() {
 }
 
 func (s *Server) orderVerification() {
-	ticker := time.NewTicker(time.Second * 4)
+	ticker := time.NewTicker(time.Second * 30)
 	for {
 		select {
 		case <-ticker.C:
@@ -94,19 +98,11 @@ func sendEmail(to string, body string) error {
 func (s *Server) orderVerificationInternal(relation config.Relation) {
 	announcer, ex := s.getOrderByUid(relation.Announcer)
 	if !ex {
-		err := sendEmail(relation.Email, fmt.Sprintf("信号源信息获取失败: %s", relation.Announcer))
-		if err != nil {
-			log.Println(err)
-		}
 		return
 	}
 
 	follower, ex := s.getOrderByUid(relation.Follower)
 	if !ex {
-		err := sendEmail(relation.Email, fmt.Sprintf("跟随者源信息获取失败: %s", relation.Announcer))
-		if err != nil {
-			log.Println(err)
-		}
 		return
 	}
 
@@ -191,12 +187,6 @@ func (s *Server) orderVerificationInternal(relation config.Relation) {
 	if err != nil {
 		log.Println(err)
 	}
-
-	fmt.Println("=============announcer==============")
-	utils.Print(announcer)
-	fmt.Println("=============follower==============")
-	utils.Print(follower)
-	fmt.Println("===========================")
 }
 
 var table = `<tr>

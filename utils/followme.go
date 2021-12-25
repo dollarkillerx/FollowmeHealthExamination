@@ -12,8 +12,8 @@ func CurrentPosition(uid string, token string, index string) (*models.CurrentPos
 	urli := fmt.Sprintf("https://www.followme.hk/api/v3/followtrade/agent/positions?uid=%s&index=%s", uid, index)
 
 	var mo models.CurrentPosition
-	err := urllib.Post(urli).RandUserAgent().
-		SetJson([]byte(fmt.Sprintf(`{"OrderBy":0,"OrderField":4,"PageIndex":1,"PageSize":1000,"uid":%s,"index":13,"Type":0,"Page":1}`, uid))).
+	err := urllib.Post(urli).RandUserAgent().RandDisguisedIP().
+		SetJson([]byte(fmt.Sprintf(`{"OrderBy":0,"OrderField":4,"PageIndex":1,"PageSize":1000,"uid":%s,"index":%s,"Type":0,"Page":1}`, uid, index))).
 		SetHeader("expect-ct", `max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"`).
 		SetHeader("server", "cloudflare").
 		SetHeader("serverinfo", "www.followme.hk").

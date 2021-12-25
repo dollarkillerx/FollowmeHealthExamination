@@ -38,7 +38,8 @@ func TestFollowTest2(t *testing.T) {
 		SetHeader("expect-ct", `max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"`).
 		SetHeader("server", "cloudflare").
 		SetHeader("serverinfo", "www.followme.hk").
-		SetHeader("cookie", "lang=zh-CN; theme=light; cookiesession1=; HMF_CI=; USER_TOKEN=;").
+		//SetHeader("cookie", "lang=zh-CN; theme=light; cookiesession1=; HMF_CI=; USER_TOKEN=;").
+		SetHeader("cookie", "lang=zh-CN; theme=light; cookiesession1=678A3E0EABCDEFGHIJKLMNOPQRSV3329; HMF_CI=6209f3acb4e3557ed90250cc3b469235c015ca2f66085c75dc45601283bcc12594; USER_TOKEN=7nUVbpLyYi4xqxPkSZu7VGeV50d2usBSjrcbs4FC9alReUw8oGKzMgkmgy83L58N9ut86cnIeWfKVLC7mGEbsA;").
 		FromJson(&mo)
 	if err != nil {
 		log.Fatalln(err)
