@@ -35,6 +35,8 @@ func (s *Server) Run() {
 func (s *Server) monitorFollowme() {
 	ticker := time.NewTicker(time.Second * 120)
 
+	var ist int
+
 	for {
 		select {
 		case <-ticker.C:
@@ -43,8 +45,13 @@ func (s *Server) monitorFollowme() {
 				position, err := utils.CurrentPosition(v.Uid, v.Token, v.Index)
 				if err != nil {
 					log.Println(err, v.Uid, v.Token, v.Index)
-					if err := sendEmail(config.CONFIG.ErrToEmail, fmt.Sprintf("信号源信息获取失败: %s  Token: %s", v.Uid, v.Token)); err != nil {
-						log.Println(err)
+					ist += 1
+					if ist >= 2 {
+						if err := sendEmail(config.CONFIG.ErrToEmail, fmt.Sprintf("信号源信息获取失败: %s  Token: %s", v.Uid, v.Token)); err != nil {
+							log.Println(err)
+						}
+
+						ist = 0
 					}
 					time.Sleep(time.Second * 30)
 					continue
@@ -52,6 +59,16 @@ func (s *Server) monitorFollowme() {
 
 				if position.Code != 0 {
 					log.Println(position, v.Uid, v.Token, v.Index)
+
+					ist += 1
+					if ist >= 2 {
+						if err := sendEmail(config.CONFIG.ErrToEmail, fmt.Sprintf("信号源信息获取失败: %s  Token: %s", v.Uid, v.Token)); err != nil {
+							log.Println(err)
+						}
+
+						ist = 0
+					}
+
 					time.Sleep(time.Second * 30)
 					continue
 				}
