@@ -46,7 +46,7 @@ func (s *Server) monitorFollowme() {
 				if err != nil {
 					log.Println(err, v.Uid, v.Token, v.Index)
 					ist += 1
-					if ist >= 2 {
+					if ist >= 10 {
 						if err := sendEmail(config.CONFIG.ErrToEmail, fmt.Sprintf("信号源信息获取失败: %s  Token: %s", v.Uid, v.Token)); err != nil {
 							log.Println(err)
 						}
@@ -61,7 +61,7 @@ func (s *Server) monitorFollowme() {
 					log.Println(position, v.Uid, v.Token, v.Index)
 
 					ist += 1
-					if ist >= 2 {
+					if ist >= 10 {
 						if err := sendEmail(config.CONFIG.ErrToEmail, fmt.Sprintf("信号源信息获取失败: %s  Token: %s", v.Uid, v.Token)); err != nil {
 							log.Println(err)
 						}
