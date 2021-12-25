@@ -22,26 +22,32 @@ func NewServer() *Server {
 		orderMap: map[string][]models.Order{},
 	}
 
-	go s.monitorFollowme()
-	go s.orderVerification()
-
 	return s
 }
 
+func (s *Server) Run() {
+	log.SetFlags(log.Llongfile | log.LstdFlags)
+	go s.monitorFollowme()
+	fmt.Println("run success")
+	s.orderVerification()
+}
+
 func (s *Server) monitorFollowme() {
-	ticker := time.NewTicker(time.Second * 2)
+	ticker := time.NewTicker(time.Second * 30)
 
 	for {
 		select {
 		case <-ticker.C:
 			for _, v := range config.CONFIG.Accounts {
-				position, err := utils.CurrentPosition(v.Uid, v.Token)
+				position, err := utils.CurrentPosition(v.Uid, v.Token, v.Index)
 				if err != nil {
-					log.Println(err)
+					time.Sleep(time.Second * 10)
+					log.Println(err, v.Uid, v.Token, v.Index)
 					continue
 				}
 
 				if position.Code != 0 {
+					time.Sleep(time.Second * 10)
 					utils.Print(position)
 					continue
 				}
@@ -53,7 +59,7 @@ func (s *Server) monitorFollowme() {
 					s.orderMap[v.Uid] = position.Data.Items
 				}()
 
-				time.Sleep(time.Millisecond * 100)
+				time.Sleep(time.Millisecond * 200)
 			}
 		}
 	}
@@ -185,10 +191,16 @@ func (s *Server) orderVerificationInternal(relation config.Relation) {
 	if err != nil {
 		log.Println(err)
 	}
+
+	fmt.Println("=============announcer==============")
+	utils.Print(announcer)
+	fmt.Println("=============follower==============")
+	utils.Print(follower)
+	fmt.Println("===========================")
 }
 
 var table = `<tr>
-                                            <th>%s</th>
+                                            <th>%d</th>
                                             <th>%.2f</th>
                                             <th>%s</th>
                                             <th>%s</th>

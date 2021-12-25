@@ -20,7 +20,7 @@ func TestFollowTest1(t *testing.T) {
 		SetHeader("expect-ct", `max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"`).
 		SetHeader("server", "cloudflare").
 		SetHeader("serverinfo", "www.followme.hk").
-		SetHeader("cookie", "lang=zh-CN; theme=light; cookiesession1=678A3E0EABCDEFGHIJKLMNOPQRSV3329; HMF_CI=6209f3acb4e3557ed90250cc3b469235c015ca2f66085c75dc45601283bcc12594; USER_TOKEN=7nUVbpLyYi4xqxPkSZu7VGeV50d2usBSjrcbs4FC9alReUw8oGKzMgkmgy83L58N9ut86cnIeWfKVLC7mGEbsA;").
+		SetHeader("cookie", "lang=zh-CN; theme=light; cookiesession1=; HMF_CI=; USER_TOKEN=;").
 		FromJson(&mo)
 	if err != nil {
 		log.Fatalln(err)
@@ -34,11 +34,11 @@ func TestFollowTest2(t *testing.T) {
 
 	var mo models.CurrentPosition
 	err := urllib.Post(urli).RandUserAgent().
-		SetJson([]byte(`{"OrderBy":0,"OrderField":4,"PageIndex":1,"PageSize":1000,"uid":188678,"index":13,"Type":0,"Page":1}`)).
+		SetJson([]byte(`{"OrderBy":0,"OrderField":4,"PageIndex":1,"PageSize":1000,"uid":784177,"index":13,"Type":0,"Page":1}`)).
 		SetHeader("expect-ct", `max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"`).
 		SetHeader("server", "cloudflare").
 		SetHeader("serverinfo", "www.followme.hk").
-		SetHeader("cookie", "lang=zh-CN; theme=light; cookiesession1=678A3E0EABCDEFGHIJKLMNOPQRSV3329; HMF_CI=6209f3acb4e3557ed90250cc3b469235c015ca2f66085c75dc45601283bcc12594; USER_TOKEN=7nUVbpLyYi4xqxPkSZu7VGeV50d2usBSjrcbs4FC9alReUw8oGKzMgkmgy83L58N9ut86cnIeWfKVLC7mGEbsA;").
+		SetHeader("cookie", "lang=zh-CN; theme=light; cookiesession1=; HMF_CI=; USER_TOKEN=;").
 		FromJson(&mo)
 	if err != nil {
 		log.Fatalln(err)

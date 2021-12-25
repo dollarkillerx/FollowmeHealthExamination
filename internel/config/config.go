@@ -32,6 +32,7 @@ type Config struct {
 type Account struct {
 	Uid   string `json:"uid"`
 	Token string `json:"token"`
+	Index string `json:"index"`
 }
 
 type Relation struct {
