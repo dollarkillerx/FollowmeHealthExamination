@@ -33,7 +33,7 @@ func (s *Server) Run() {
 }
 
 func (s *Server) monitorFollowme() {
-	ticker := time.NewTicker(time.Second * 30)
+	ticker := time.NewTicker(time.Second * 120)
 
 	for {
 		select {
@@ -70,7 +70,7 @@ func (s *Server) monitorFollowme() {
 }
 
 func (s *Server) orderVerification() {
-	ticker := time.NewTicker(time.Second * 30)
+	ticker := time.NewTicker(time.Second * 125)
 	for {
 		select {
 		case <-ticker.C:
